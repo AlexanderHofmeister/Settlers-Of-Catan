@@ -10,7 +10,7 @@ public class Vertex {
 
   private List<Edge> edges;
 
-  private List<Hex> hexes;
+  private List<Tile> tiles;
 
   private List<Vertex> vertices;
 

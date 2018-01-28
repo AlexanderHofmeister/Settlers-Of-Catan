@@ -1,19 +1,15 @@
 package view;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.game.Board;
 import model.game.Dice;
+import model.game.Tile;
 
 public class Main extends Application {
   public static void main(final String[] args) {
@@ -47,29 +43,8 @@ public class Main extends Application {
     root.setBottom(diceBox);
 
     final Board board = new Board();
-    final Set<Point> points = board.getGrid().keySet();
-    final Map<Point, Hexagon> createdFields = new LinkedHashMap<>();
-
-    for (final Point point : points) {
-      Hexagon hexagon = null;
-      if (point.getX() == 0.0 && point.getY() == 0.0) {
-        hexagon = Hexagon.createVerticalHexagon(new Point(100, 150), new Point(150, 150));
-      } else if (point.getX() == 0 && point.getY() > 0.0 && point.getY() <= Board.GRID_SIZE / 2) {
-        hexagon = Hexagon.createTopRight(createdFields.get(new Point(0, point.getY() - 1)));
-      } else if (point.getX() > 0) {
-        hexagon = Hexagon.createVerticalHexagon(createdFields.get(new Point(point.getX() - 1, point.getY())));
-      } else if (point.getX() == 0 && point.getY() > Board.GRID_SIZE / 2) {
-        hexagon = Hexagon.createBottomRight(createdFields.get(new Point(0, point.getY() - 1)));
-      } else {
-        System.out.println("wrong: " + point);
-      }
-
-      if (hexagon != null) {
-        hexagon.setFill(Color.LEMONCHIFFON);
-        hexagon.setStroke(Color.BLACK);
-        createdFields.put(point, hexagon);
-        root.getChildren().add(hexagon);
-      }
+    for (final Tile Tile : board.getGrid().values()) {
+      root.getChildren().add(Tile);
     }
 
   }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import lombok.Getter;
 
+import javafx.scene.paint.Color;
 import view.Point;
 
 @Getter
@@ -12,7 +13,7 @@ public class Board {
 
   public static final int GRID_SIZE = 5;
 
-  private final Map<Point, Hex> grid = new LinkedHashMap<>();
+  private final Map<Point, Tile> grid = new LinkedHashMap<>();
 
   public Board() {
     for (int column = 0; column < GRID_SIZE; column++) {
@@ -28,7 +29,23 @@ public class Board {
         } else if (column == GRID_SIZE - 1 && row >= GRID_SIZE - 2) {
           continue;
         }
-        this.grid.put(new Point(row, column), new Hex());
+
+        Tile tile = null;
+        final Point point = new Point(row, column);
+        if (point.getX() == 0.0 && point.getY() == 0.0) {
+          tile = Tile.createVerticalTile(new Point(100, 150), new Point(150, 150));
+        } else if (point.getX() == 0 && point.getY() > 0.0 && point.getY() <= Board.GRID_SIZE / 2) {
+          tile = Tile.createTopRight(this.grid.get(new Point(0, point.getY() - 1)));
+        } else if (point.getX() > 0) {
+          tile = Tile.createVerticalTile(this.grid.get(new Point(point.getX() - 1, point.getY())));
+        } else if (point.getX() == 0 && point.getY() > Board.GRID_SIZE / 2) {
+          tile = Tile.createBottomRight(this.grid.get(new Point(0, point.getY() - 1)));
+        }
+
+        tile.setFill(Color.LEMONCHIFFON);
+        tile.setStroke(Color.BLACK);
+
+        this.grid.put(point, tile);
       }
     }
   }

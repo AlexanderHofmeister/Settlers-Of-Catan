@@ -1,32 +1,38 @@
-package view;
+package model.game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
 import javafx.scene.shape.Polygon;
+import model.NumberType;
+import model.RessourceType;
+import view.Point;
 
 @Getter
-public class Hexagon extends Polygon {
+public class Tile extends Polygon {
 
   private static final double DEFAULT_WIDTH_HEX = 50.0;
 
-  public static Hexagon createBottomRight(final Hexagon hexagon) {
+  public static Tile createBottomRight(final Tile Tile) {
 
-    final Point topLeft = hexagon.getMiddleRight();
-    final Point middleLeft = hexagon.getBottomRight();
+    final Point topLeft = Tile.getMiddleRight();
+    final Point middleLeft = Tile.getBottomRight();
     final Point bottomLeft = new Point(topLeft.getX(), topLeft.getY() + DEFAULT_WIDTH_HEX * 2);
 
     final Point topRight = new Point(topLeft.getX() + DEFAULT_WIDTH_HEX, topLeft.getY());
     final Point bottomRight = new Point(topRight.getX(), topRight.getY() + DEFAULT_WIDTH_HEX * 2);
     final Point middleRight = new Point(topRight.getX() + DEFAULT_WIDTH_HEX / 2, topRight.getY() + DEFAULT_WIDTH_HEX);
 
-    return new Hexagon(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
+    return new Tile(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
 
   }
 
-  public static Hexagon createTopRight(final Hexagon hexagon) {
+  public static Tile createTopRight(final Tile Tile) {
 
-    final Point middleLeft = hexagon.getTopRight();
-    final Point bottomLeft = hexagon.getMiddleRight();
+    final Point middleLeft = Tile.getTopRight();
+    final Point bottomLeft = Tile.getMiddleRight();
     final Point topLeft = new Point(middleLeft.getX() + DEFAULT_WIDTH_HEX / 2, middleLeft.getY() - DEFAULT_WIDTH_HEX);
 
     final Point topRight = new Point(topLeft.getX() + DEFAULT_WIDTH_HEX, topLeft.getY());
@@ -35,16 +41,16 @@ public class Hexagon extends Polygon {
 
     final Point middleRight = new Point(topRight.getX() + DEFAULT_WIDTH_HEX / 2, topRight.getY() + DEFAULT_WIDTH_HEX);
 
-    return new Hexagon(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
+    return new Tile(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
 
   }
 
-  public static Hexagon createVerticalHexagon(final Hexagon hexagon) {
-    return createVerticalHexagon(hexagon.getBottomLeft(), hexagon.getBottomRight());
+  public static Tile createVerticalTile(final Tile Tile) {
+    return createVerticalTile(Tile.getBottomLeft(), Tile.getBottomRight());
 
   }
 
-  public static Hexagon createVerticalHexagon(final Point oldBottomLeft, final Point oldBottomRight) {
+  public static Tile createVerticalTile(final Point oldBottomLeft, final Point oldBottomRight) {
     final Point topLeft = oldBottomLeft;
     final Point topRight = oldBottomRight;
 
@@ -54,9 +60,13 @@ public class Hexagon extends Polygon {
     final Point bottomRight = new Point(topRight.getX(), topRight.getY() + DEFAULT_WIDTH_HEX * 2);
     final Point middleRight = new Point(topRight.getX() + DEFAULT_WIDTH_HEX / 2, topRight.getY() + DEFAULT_WIDTH_HEX);
 
-    return new Hexagon(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
+    return new Tile(topLeft, middleLeft, bottomLeft, bottomRight, middleRight, topRight);
 
   }
+
+  private RessourceType type;
+  private NumberType number;
+  private final List<Vertex> vertices = new ArrayList<>(6);
 
   private final Point topLeft;
   private final Point middleLeft;
@@ -65,7 +75,7 @@ public class Hexagon extends Polygon {
   private final Point middleRight;
   private final Point topRight;
 
-  private Hexagon(final Point topLeft, final Point middleLeft, final Point bottomLeft, final Point bottomRight, final Point middleRight,
+  private Tile(final Point topLeft, final Point middleLeft, final Point bottomLeft, final Point bottomRight, final Point middleRight,
           final Point topRight) {
     this.topLeft = topLeft;
     this.middleLeft = middleLeft;
