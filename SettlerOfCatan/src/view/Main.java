@@ -6,11 +6,14 @@ import java.util.Set;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.game.Board;
+import model.game.Dice;
 
 public class Main extends Application {
   public static void main(final String[] args) {
@@ -30,6 +33,18 @@ public class Main extends Application {
       mouseCoordinates.setText(event.getSceneX() + " / " + event.getSceneY());
     });
     root.setTop(mouseCoordinates);
+    final HBox diceBox = new HBox(10);
+    final Dice diceLeft = new Dice();
+    final Dice diceRight = new Dice();
+    diceBox.getChildren().add(diceLeft);
+    diceBox.getChildren().add(diceRight);
+    final javafx.scene.control.Button rollDice = new Button("Roll dice");
+    rollDice.setOnAction(action -> {
+      diceLeft.roll();
+      diceRight.roll();
+    });
+    diceBox.getChildren().add(rollDice);
+    root.setBottom(diceBox);
 
     final Board board = new Board();
     final Set<Point> points = board.getGrid().keySet();
