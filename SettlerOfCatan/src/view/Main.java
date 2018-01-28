@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.game.Board;
 import model.game.Dice;
@@ -43,8 +44,13 @@ public class Main extends Application {
     root.setBottom(diceBox);
 
     final Board board = new Board();
-    for (final Tile Tile : board.getGrid().values()) {
-      root.getChildren().add(Tile);
+    for (final Tile tile : board.getGrid().values()) {
+      root.getChildren().add(tile);
+      if (tile.getChip() != null) {
+        final Text label = new Text(tile.getMiddleLeft().getX() + 50, tile.getMiddleLeft().getY(), tile.getChip().getLabel());
+        label.toFront();
+        root.getChildren().add(label);
+      }
     }
 
   }
