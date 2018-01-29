@@ -13,15 +13,15 @@ import javafx.scene.paint.Color;
 @Getter
 public enum TileType {
 
-  WOOL(4, true, Color.LIGHTGREEN),
+  PASTURE(4, true, Color.LIGHTGREEN),
 
-  GRAIN(4, true, Color.YELLOW),
+  FIELDS(4, true, Color.YELLOW),
 
-  ORE(3, true, Color.LIGHTGRAY),
+  MOUNTAINS(3, true, Color.LIGHTGRAY),
 
-  LUMBER(4, true, Color.DARKGREEN),
+  FOREST(4, true, Color.DARKGREEN),
 
-  BRICK(3, true, Color.FIREBRICK),
+  HILLS(3, true, Color.FIREBRICK),
 
   DESERT(1, false, new Color(1.0f, 0.99039216f, 0.7039216f, 1));
 
@@ -38,7 +38,7 @@ public enum TileType {
 
   private final int count;
 
-  private final boolean ressource;
+  private final boolean resource;
 
   private final Color color;
 
