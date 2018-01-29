@@ -32,9 +32,7 @@ public enum Chip {
   TWELVE("12", 1);
 
   public static List<Chip> buildChipsForGame() {
-
     final List<Chip> chips = new ArrayList<>();
-
     for (final Chip chip : values()) {
       IntStream.range(0, chip.getCount()).forEach(c -> {
         chips.add(chip);

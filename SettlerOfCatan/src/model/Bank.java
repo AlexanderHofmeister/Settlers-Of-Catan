@@ -8,11 +8,12 @@ public class Bank {
 
   private final int MAX_RESSOURCE_COUNT = 19;
 
-  private final Map<RessourceType, Integer> ressources;
+  private final Map<TileType, Integer> ressources;
 
   public Bank() {
     this.ressources = new HashMap<>();
-    Arrays.stream(RessourceType.values()).forEach(ressouce -> this.ressources.put(ressouce, this.MAX_RESSOURCE_COUNT));
+    Arrays.stream(TileType.values()).filter(TileType::isRessource)
+            .forEach(ressouce -> this.ressources.put(ressouce, this.MAX_RESSOURCE_COUNT));
   }
 
   @Override

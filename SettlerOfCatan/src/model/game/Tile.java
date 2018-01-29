@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javafx.scene.shape.Polygon;
 import model.Chip;
-import model.RessourceType;
+import model.TileType;
 import view.Point;
 
 @Getter
@@ -65,7 +65,8 @@ public class Tile extends Polygon {
 
   }
 
-  private RessourceType type;
+  @Setter
+  private TileType type;
 
   @Setter
   @Getter

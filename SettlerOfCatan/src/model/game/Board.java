@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import javafx.scene.paint.Color;
 import model.Chip;
+import model.TileType;
 import view.Point;
 
 @Getter
@@ -19,6 +20,8 @@ public class Board {
   private final Map<Point, Tile> grid = new LinkedHashMap<>();
 
   public List<Chip> chips = Chip.buildChipsForGame();
+
+  public List<TileType> ressourceTiles = TileType.buildRessourceTilesForGame();
 
   public Board() {
     for (int column = 0; column < GRID_SIZE; column++) {
@@ -37,7 +40,8 @@ public class Board {
 
         Tile tile = null;
         final Point point = new Point(row, column);
-        final Chip chip = getRandomChip();
+        final TileType tileType = getRandomTileType();
+        final Chip chip = tileType == TileType.DESERT ? null : getRandomChip();
         if (point.getX() == 0.0 && point.getY() == 0.0) {
           tile = Tile.createVerticalTile(new Point(100, 150), new Point(150, 150), chip);
         } else if (point.getX() == 0 && point.getY() > 0.0 && point.getY() <= Board.GRID_SIZE / 2) {
@@ -48,8 +52,10 @@ public class Board {
           tile = Tile.createBottomRight(this.grid.get(new Point(0, point.getY() - 1)));
         }
 
-        tile.setFill(Color.LEMONCHIFFON);
-        tile.setStroke(Color.BLACK);
+        tile.setType(tileType);
+        tile.setFill(tile.getType().getColor());
+        tile.setStrokeWidth(3);
+        tile.setStroke(Color.LEMONCHIFFON);
         tile.setChip(chip);
         this.grid.put(point, tile);
       }
@@ -64,6 +70,16 @@ public class Board {
     final Chip chip = this.chips.get(randomChipIndex);
     this.chips.remove(randomChipIndex);
     return chip;
+  }
+
+  private TileType getRandomTileType() {
+    if (this.ressourceTiles.size() == 0) {
+      return null;
+    }
+    final int randomressourceTiletypeIndex = new Random().ints(0, this.ressourceTiles.size()).findFirst().getAsInt();
+    final TileType tileType = this.ressourceTiles.get(randomressourceTiletypeIndex);
+    this.ressourceTiles.remove(randomressourceTiletypeIndex);
+    return tileType;
   }
 
 }
