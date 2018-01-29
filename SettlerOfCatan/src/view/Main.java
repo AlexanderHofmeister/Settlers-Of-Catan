@@ -21,7 +21,6 @@ public class Main extends Application {
   public void start(final Stage primaryStage) {
     final BorderPane root = new BorderPane();
     final Scene scene = new Scene(root);
-    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setTitle("Settler of Catan");
