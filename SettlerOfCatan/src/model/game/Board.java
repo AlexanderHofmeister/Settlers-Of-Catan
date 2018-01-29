@@ -41,7 +41,7 @@ public class Board {
         Tile tile = null;
         final Point point = new Point(row, column);
         final TileType tileType = getRandomTileType();
-        final Chip chip = tileType.isResource() ? null : getRandomChip();
+        final Chip chip = tileType.isResource() ? getRandomChip() : null;
         if (point.getX() == 0.0 && point.getY() == 0.0) {
           tile = Tile.createVerticalTile(new Point(100, 150), new Point(150, 150), chip);
         } else if (point.getX() == 0 && point.getY() > 0.0 && point.getY() <= Board.GRID_SIZE / 2) {

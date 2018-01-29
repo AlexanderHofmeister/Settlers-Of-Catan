@@ -27,9 +27,9 @@ public enum TileType {
 
   public static List<TileType> buildRessourceTilesForGame() {
     final List<TileType> chips = new ArrayList<>();
-    for (final TileType chip : values()) {
-      IntStream.range(0, chip.getCount()).forEach(c -> {
-        chips.add(chip);
+    for (final TileType tileType : values()) {
+      IntStream.range(0, tileType.getCount()).forEach(c -> {
+        chips.add(tileType);
       });
     }
 
