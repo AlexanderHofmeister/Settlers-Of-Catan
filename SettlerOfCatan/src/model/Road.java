@@ -1,5 +1,5 @@
 package model;
 
-public class Road {
+public class Road extends PlayingPiece {
 
 }
