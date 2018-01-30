@@ -5,11 +5,12 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
-public class Road extends PlayingPiece {
+public class DevelopmentCard extends PlayingPiece {
 
   @Override
   public Map<ResourceType, Integer> buildCosts() {
-    return Maps.newHashMap(ImmutableMap.of(ResourceType.LUMBER, 1, ResourceType.BRICK, 1));
+    return Maps.newHashMap(ImmutableMap.of(ResourceType.GRAIN, 2, ResourceType.ORE, 3));
+
   }
 
 }

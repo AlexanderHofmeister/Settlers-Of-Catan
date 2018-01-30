@@ -1,15 +1,24 @@
 package model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import javafx.scene.paint.Color;
+
+@RequiredArgsConstructor
 public enum ResourceType {
 
-  WOOL,
+  WOOL(Color.LIGHTGREEN),
 
-  GRAIN,
+  GRAIN(Color.YELLOW),
 
-  ORE,
+  ORE(Color.LIGHTGRAY),
 
-  LUMBER,
+  LUMBER(Color.DARKGREEN),
 
-  BRICK;
+  BRICK(Color.FIREBRICK);
+
+  @Getter
+  private final Color color;
 
 }

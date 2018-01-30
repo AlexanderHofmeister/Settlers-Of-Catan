@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.game.Board;
+import model.game.BuildingCostsTable;
 import model.game.Dice;
 import model.game.Tile;
 
@@ -18,7 +19,7 @@ public class Main extends Application {
   }
 
   @Override
-  public void start(final Stage primaryStage) {
+  public void start(final Stage primaryStage) throws InstantiationException, IllegalAccessException {
     final BorderPane root = new BorderPane();
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
@@ -51,6 +52,6 @@ public class Main extends Application {
         root.getChildren().add(label);
       }
     }
-
+    root.setRight(new BuildingCostsTable());
   }
 }
