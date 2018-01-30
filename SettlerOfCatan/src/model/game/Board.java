@@ -1,14 +1,14 @@
 package model.game;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import lombok.Getter;
 
 import javafx.scene.paint.Color;
 import model.Chip;
+import model.Direction;
 import model.TileType;
 import view.Point;
 
@@ -17,7 +17,9 @@ public class Board {
 
   public static final int GRID_SIZE = 5;
 
-  private final Map<Point, Tile> grid = new LinkedHashMap<>();
+  private final List<Tile> tiles = new ArrayList<>();
+
+  private final List<Edge> edges = new ArrayList<>();
 
   public List<Chip> chips = Chip.buildChipsForGame();
 
@@ -45,11 +47,11 @@ public class Board {
         if (point.getX() == 0.0 && point.getY() == 0.0) {
           tile = Tile.createVerticalTile(new Point(100, 150), new Point(150, 150), chip);
         } else if (point.getX() == 0 && point.getY() > 0.0 && point.getY() <= Board.GRID_SIZE / 2) {
-          tile = Tile.createTopRight(this.grid.get(new Point(0, point.getY() - 1)));
+          tile = Tile.createTopRight(getTileByPoint(new Point(0, point.getY() - 1)));
         } else if (point.getX() > 0) {
-          tile = Tile.createVerticalTile(this.grid.get(new Point(point.getX() - 1, point.getY())));
+          tile = Tile.createVerticalTile(getTileByPoint(new Point(point.getX() - 1, point.getY())));
         } else if (point.getX() == 0 && point.getY() > Board.GRID_SIZE / 2) {
-          tile = Tile.createBottomRight(this.grid.get(new Point(0, point.getY() - 1)));
+          tile = Tile.createBottomRight(getTileByPoint(new Point(0, point.getY() - 1)));
         }
 
         tile.setType(tileType);
@@ -57,9 +59,48 @@ public class Board {
         tile.setStrokeWidth(3);
         tile.setStroke(Color.LEMONCHIFFON);
         tile.setChip(chip);
-        this.grid.put(point, tile);
+
+        tile.setIndex(point);
+
+        this.tiles.add(tile);
+        buildEdges(tile);
       }
     }
+  }
+
+  private void buildEdges(final Tile tile) {
+
+    for (final Direction direction : Direction.values()) {
+
+      if (tile.getEdgeByDirection(direction) == null) {
+
+        // wenn noch keine Kante da, dann hole Nachbarshexagon
+        // wenn nachbar da, dann setze Ecke auf deine Ecke
+        // und mach weiter
+        // wenn kein nachbar da, dann bau neue Ecke und füge sie hinzu
+
+        final Direction oppDir = direction.getOpposite();
+        final Tile neighbor = getNeighborTile(tile, direction);
+        if (neighbor != null) {
+          final Edge edgeOfNeighbor = neighbor.getEdgeByDirection(oppDir);
+          if (edgeOfNeighbor != null) {
+            tile.addEdge(direction, edgeOfNeighbor);
+            continue;
+          }
+        }
+        final Edge edge = new Edge();
+        tile.addEdge(direction, edge);
+        this.edges.add(edge);
+
+      }
+    }
+
+  }
+
+  private Tile getNeighborTile(final Tile tile, final Direction direction) {
+    return this.tiles.stream()
+            .filter(possibleNeighbor -> possibleNeighbor.getIndex().equals(tile.getIndex().addTo(direction.getIndexOfDirection())))
+            .findFirst().orElse(null);
   }
 
   private Chip getRandomChip() {
@@ -80,6 +121,10 @@ public class Board {
     final TileType tileType = this.ressourceTiles.get(randomressourceTiletypeIndex);
     this.ressourceTiles.remove(randomressourceTiletypeIndex);
     return tileType;
+  }
+
+  private Tile getTileByPoint(final Point index) {
+    return this.tiles.stream().filter(tile -> tile.getIndex().equals(index)).findFirst().orElse(null);
   }
 
 }

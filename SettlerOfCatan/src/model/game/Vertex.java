@@ -12,6 +12,4 @@ public class Vertex {
 
   private List<Tile> tiles;
 
-  private List<Vertex> vertices;
-
 }

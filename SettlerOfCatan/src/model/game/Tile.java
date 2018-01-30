@@ -1,13 +1,16 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javafx.scene.shape.Polygon;
 import model.Chip;
+import model.Direction;
 import model.TileType;
 import view.Point;
 
@@ -73,6 +76,7 @@ public class Tile extends Polygon {
   private Chip chip;
 
   private final List<Vertex> vertices = new ArrayList<>(6);
+  private final Map<Direction, Edge> edges = new HashMap<>(6);
 
   private final Point topLeft;
   private final Point middleLeft;
@@ -80,6 +84,10 @@ public class Tile extends Polygon {
   private final Point bottomRight;
   private final Point middleRight;
   private final Point topRight;
+
+  @Setter
+  @Getter
+  private Point index;
 
   private Tile(final Point topLeft, final Point middleLeft, final Point bottomLeft, final Point bottomRight, final Point middleRight,
           final Point topRight, final Chip chip) {
@@ -93,6 +101,14 @@ public class Tile extends Polygon {
     getPoints().addAll(topLeft.getX(), topLeft.getY(), middleLeft.getX(), middleLeft.getY(), bottomLeft.getX(), bottomLeft.getY(),
             bottomRight.getX(), bottomRight.getY(), middleRight.getX(), middleRight.getY(), topRight.getX(), topRight.getY(),
             topLeft.getX(), topLeft.getY());
+  }
+
+  public void addEdge(final Direction direction, final Edge edge) {
+    this.edges.put(direction, edge);
+  }
+
+  public Edge getEdgeByDirection(final Direction direction) {
+    return this.edges.get(direction);
   }
 
 }

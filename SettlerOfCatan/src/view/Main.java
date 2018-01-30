@@ -44,7 +44,7 @@ public class Main extends Application {
     root.setBottom(diceBox);
 
     final Board board = new Board();
-    for (final Tile tile : board.getGrid().values()) {
+    for (final Tile tile : board.getTiles()) {
       root.getChildren().add(tile);
       if (tile.getChip() != null) {
         final Text label = new Text(tile.getMiddleLeft().getX() + 50, tile.getMiddleLeft().getY(), tile.getChip().getLabel());

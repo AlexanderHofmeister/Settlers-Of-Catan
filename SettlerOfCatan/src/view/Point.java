@@ -12,6 +12,10 @@ public class Point {
   private final double x;
   private final double y;
 
+  public Point addTo(final Point point) {
+    return new Point(this.x + point.getX(), this.y + point.getY());
+  }
+
   public final Double[] getPoint() {
     return new Double[] { this.x, this.y };
   }
