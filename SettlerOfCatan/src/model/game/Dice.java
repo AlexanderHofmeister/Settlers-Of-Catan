@@ -32,7 +32,6 @@ public class Dice extends StackPane {
     this.numberLabel = new Label();
     getChildren().add(this.diceShape);
     getChildren().add(this.numberLabel);
-    roll();
   }
 
   public void roll() {
