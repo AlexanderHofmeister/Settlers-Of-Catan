@@ -1,16 +1,16 @@
 package model;
 
-import java.util.Map;
+import java.util.List;
 
 import lombok.Getter;
 
 public class BuildingCost {
 
   @Getter
-  private final Map<ResourceType, Integer> price;
+  private final List<Cost> costs;
 
-  public BuildingCost(final Map<ResourceType, Integer> price) {
-    this.price = price;
+  public BuildingCost(final List<Cost> costs) {
+    this.costs = costs;
   }
 
 }

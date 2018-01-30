@@ -1,19 +1,18 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import lombok.Getter;
 
 public abstract class PlayingPiece {
 
   @Getter
-  private Map<ResourceType, Integer> costs = new HashMap<>();
+  private final List<Cost> costs;
 
   public PlayingPiece() {
     this.costs = buildCosts();
   }
 
-  public abstract Map<ResourceType, Integer> buildCosts();
+  public abstract List<Cost> buildCosts();
 
 }

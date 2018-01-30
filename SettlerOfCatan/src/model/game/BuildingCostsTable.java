@@ -1,34 +1,37 @@
 package model.game;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import model.City;
+import model.Cost;
+import model.Development;
 import model.PlayingPiece;
-import model.ResourceType;
+import model.Road;
+import model.Settlement;
 
 public class BuildingCostsTable extends GridPane {
 
-  public BuildingCostsTable() throws InstantiationException, IllegalAccessException {
-    add(new Label("Bulding Costs"), 0, 0, 5, 1);
+  public BuildingCostsTable() {
+    final Label label = new Label("Bulding Costs");
+    label.setFont(new Font("Arial", 20));
+    add(label, 0, 0, 5, 1);
 
-    final List<Class<? extends PlayingPiece>> playingCards = new ArrayList<>();
-    playingCards.addAll(
-            new Reflections(new ConfigurationBuilder().addUrls(ClasspathHelper.forPackage("model"))).getSubTypesOf(PlayingPiece.class));
+    final List<PlayingPiece> playingCards = Stream.of(new Road(), new Settlement(), new City(), new Development())
+            .collect(Collectors.toList());
+
     for (int row = 1; row <= playingCards.size(); row++) {
-      final Class<? extends PlayingPiece> clazz = playingCards.get(row - 1);
-      final PlayingPiece newInstance = clazz.newInstance();
-      int column = 0;
-      for (final Map.Entry<ResourceType, Integer> price : newInstance.getCosts().entrySet()) {
-        for (int amount = 0; amount < price.getValue(); amount++) {
-          add(new Rectangle(15, 15, price.getKey().getColor()), column, row);
+      final PlayingPiece piece = playingCards.get(row - 1);
+      add(new Label(piece.getClass().getSimpleName()), 0, row);
+      int column = 1;
+      for (final Cost cost : piece.getCosts()) {
+        for (int amount = 0; amount < cost.getAmount(); amount++) {
+          add(new Rectangle(15, 15, cost.getResourceType().getColor()), column, row);
           column++;
         }
       }

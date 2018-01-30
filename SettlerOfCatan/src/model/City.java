@@ -1,15 +1,12 @@
 package model;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-
-import java.util.Map;
+import java.util.List;
 
 public class City extends PlayingPiece {
 
   @Override
-  public Map<ResourceType, Integer> buildCosts() {
-    return Maps.newHashMap(ImmutableMap.of(ResourceType.GRAIN, 1, ResourceType.ORE, 1, ResourceType.WOOL, 1));
+  public List<Cost> buildCosts() {
+    return Cost.of(ResourceType.GRAIN, 2, ResourceType.ORE, 3);
   }
 
 }
