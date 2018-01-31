@@ -7,9 +7,11 @@ import java.util.Random;
 import lombok.Getter;
 
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 import model.Chip;
 import model.Direction;
 import model.TileType;
+import model.VertexLocation;
 import view.Point;
 
 @Getter
@@ -20,6 +22,8 @@ public class Board {
   private final List<Tile> tiles = new ArrayList<>();
 
   private final List<Edge> edges = new ArrayList<>();
+
+  private final List<Vertex> vertices = new ArrayList<>();
 
   public List<Chip> chips = Chip.buildChipsForGame();
 
@@ -64,6 +68,7 @@ public class Board {
 
         this.tiles.add(tile);
         buildEdges(tile);
+        buildVertices(tile);
       }
     }
   }
@@ -93,6 +98,45 @@ public class Board {
         this.edges.add(edge);
 
       }
+    }
+
+  }
+
+  private void buildVertices(final Tile tile) {
+
+    for (final VertexLocation location : VertexLocation.values()) {
+
+      if (tile.getVertexByLocation(location) == null) {
+
+        final Pair<Direction, Direction> directionsOfOppositeLocation = location.getDirection();
+        final Tile neighborA = getNeighborTile(tile, directionsOfOppositeLocation.getKey());
+
+        if (neighborA != null) {
+          final VertexLocation opposite = location.getOpposite();
+          final Vertex opp = neighborA.getVertexByLocation(opposite);
+          if (opp != null) {
+            tile.addVertex(location, opp);
+            continue;
+          }
+        }
+
+        final Tile neighborB = getNeighborTile(tile, directionsOfOppositeLocation.getValue());
+
+        if (neighborB != null) {
+          final VertexLocation opposite = location.getOpposite();
+          final Vertex opp = neighborB.getVertexByLocation(opposite);
+          if (opp != null) {
+            tile.addVertex(location, opp);
+            continue;
+          }
+        }
+
+        final Vertex newVertex = new Vertex();
+        tile.addVertex(location, newVertex);
+        this.vertices.add(newVertex);
+
+      }
+
     }
 
   }

@@ -1,8 +1,6 @@
 package model.game;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -12,6 +10,7 @@ import javafx.scene.shape.Polygon;
 import model.Chip;
 import model.Direction;
 import model.TileType;
+import model.VertexLocation;
 import view.Point;
 
 @Getter
@@ -75,7 +74,7 @@ public class Tile extends Polygon {
   @Getter
   private Chip chip;
 
-  private final List<Vertex> vertices = new ArrayList<>(6);
+  private final Map<VertexLocation, Vertex> vertices = new HashMap<>(6);
   private final Map<Direction, Edge> edges = new HashMap<>(6);
 
   private final Point topLeft;
@@ -107,8 +106,16 @@ public class Tile extends Polygon {
     this.edges.put(direction, edge);
   }
 
+  public void addVertex(final VertexLocation location, final Vertex vertex) {
+    this.vertices.put(location, vertex);
+  }
+
   public Edge getEdgeByDirection(final Direction direction) {
     return this.edges.get(direction);
+  }
+
+  public Vertex getVertexByLocation(final VertexLocation location) {
+    return this.vertices.get(location);
   }
 
 }

@@ -1,8 +1,14 @@
 package model.game;
 
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+import model.Road;
+
 public class Edge {
+
+  @Getter
+  @Setter
+  private Road road;
 
 }
