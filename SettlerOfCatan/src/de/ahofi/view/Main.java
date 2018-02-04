@@ -1,4 +1,6 @@
-package view;
+package de.ahofi.view;
+
+import de.ahofi.game.model.Dice;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -6,12 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import model.game.Board;
-import model.game.BuildingCostsTable;
-import model.game.Dice;
-import model.game.Tile;
+import javafx.util.Pair;
 
 public class Main extends Application {
   public static void main(final String[] args) {
@@ -44,14 +45,29 @@ public class Main extends Application {
     root.setBottom(diceBox);
 
     final Board board = new Board();
-    for (final Tile tile : board.getTiles()) {
-      root.getChildren().add(tile);
-      if (tile.getChip() != null) {
-        final Text label = new Text(tile.getMiddleLeft().getX() + 50, tile.getMiddleLeft().getY(), tile.getChip().getLabel());
-        label.toFront();
-        root.getChildren().add(label);
-      }
+
+    for (final Tile hexagon : board.getTiles()) {
+      root.getChildren().add(hexagon);
     }
+
+    for (final Vertex vertex : board.getVertices()) {
+      final Circle e = new Circle(vertex.getLocation().getX(), vertex.getLocation().getY(), 10);
+      e.toFront();
+      root.getChildren().add(e);
+    }
+
+    for (final Edge edge : board.getEdges()) {
+      final Pair<Point, Point> points = edge.getPoints();
+      final Point a = points.getKey();
+      final Point b = points.getValue();
+      final Line edgeLine = new Line(a.getX(), a.getY(), b.getX(), b.getY());
+      edgeLine.setStrokeWidth(1);
+      edgeLine.setStroke(Color.RED);
+      edgeLine.toFront();
+      edgeLine.toFront();
+      root.getChildren().add(edgeLine);
+    }
+
     root.setRight(new BuildingCostsTable());
   }
 }

@@ -1,4 +1,4 @@
-package model.game;
+package de.ahofi.game.model;
 
 import java.util.Random;
 

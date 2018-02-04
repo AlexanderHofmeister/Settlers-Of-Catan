@@ -1,4 +1,4 @@
-package view;
+package de.ahofi.view;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 public class Point {
 
-  private final double x;
-  private final double y;
+  protected final double x;
+  protected final double y;
 
   public Point addTo(final Point point) {
     return new Point(this.x + point.getX(), this.y + point.getY());

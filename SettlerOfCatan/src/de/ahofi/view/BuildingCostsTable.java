@@ -1,4 +1,11 @@
-package model.game;
+package de.ahofi.view;
+
+import de.ahofi.game.model.City;
+import de.ahofi.game.model.Cost;
+import de.ahofi.game.model.Development;
+import de.ahofi.game.model.PlayingPiece;
+import de.ahofi.game.model.Road;
+import de.ahofi.game.model.Settlement;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,12 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import model.City;
-import model.Cost;
-import model.Development;
-import model.PlayingPiece;
-import model.Road;
-import model.Settlement;
 
 public class BuildingCostsTable extends GridPane {
 

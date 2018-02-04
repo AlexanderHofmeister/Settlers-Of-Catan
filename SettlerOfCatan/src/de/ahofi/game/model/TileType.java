@@ -1,4 +1,4 @@
-package model;
+package de.ahofi.game.model;
 
 import java.util.ArrayList;
 import java.util.List;

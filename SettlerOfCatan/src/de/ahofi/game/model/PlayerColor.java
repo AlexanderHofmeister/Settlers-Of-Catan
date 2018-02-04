@@ -1,4 +1,4 @@
-package model;
+package de.ahofi.game.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,17 +6,15 @@ import lombok.RequiredArgsConstructor;
 import javafx.scene.paint.Color;
 
 @RequiredArgsConstructor
-public enum ResourceType {
+public enum PlayerColor {
 
-  WOOL(Color.LIGHTGREEN),
+  BLUE(Color.BLUE),
 
-  GRAIN(Color.YELLOW),
+  WHITE(Color.WHITE),
 
-  ORE(Color.LIGHTGRAY),
+  ORANGE(Color.ORANGE),
 
-  LUMBER(Color.DARKGREEN),
-
-  BRICK(Color.FIREBRICK);
+  RED(Color.RED);
 
   @Getter
   private final Color color;

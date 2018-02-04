@@ -1,4 +1,4 @@
-package model;
+package de.ahofi.game.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,14 +6,13 @@ import java.util.Map;
 
 public class Bank {
 
-  private final int MAX_RESSOURCE_COUNT = 19;
+  private final static int MAX_RESSOURCE_COUNT = 19;
 
   private final Map<TileType, Integer> resources;
 
   public Bank() {
     this.resources = new HashMap<>();
-    Arrays.stream(TileType.values()).filter(TileType::isResource)
-            .forEach(resource -> this.resources.put(resource, this.MAX_RESSOURCE_COUNT));
+    Arrays.stream(TileType.values()).filter(TileType::isResource).forEach(resource -> this.resources.put(resource, MAX_RESSOURCE_COUNT));
   }
 
   @Override
