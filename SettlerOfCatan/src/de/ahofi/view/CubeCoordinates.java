@@ -20,7 +20,7 @@ public class CubeCoordinates {
   }
 
   public CubeCoordinates addX() {
-    this.x--;
+    this.x++;
     return this;
   }
 
@@ -39,17 +39,17 @@ public class CubeCoordinates {
   }
 
   public CubeCoordinates subX() {
-    this.x++;
+    this.x--;
     return this;
   }
 
   public CubeCoordinates subY() {
-    this.y++;
+    this.y--;
     return this;
   }
 
   public CubeCoordinates subZ() {
-    this.z++;
+    this.z--;
     return this;
   }
 
