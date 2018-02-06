@@ -36,7 +36,7 @@ public class Main extends Application {
     final Dice diceRight = new Dice();
     diceBox.getChildren().add(diceLeft);
     diceBox.getChildren().add(diceRight);
-    final javafx.scene.control.Button rollDice = new Button("Roll dice");
+    final Button rollDice = new Button("Roll dice");
     rollDice.setOnAction(action -> {
       diceLeft.roll();
       diceRight.roll();
